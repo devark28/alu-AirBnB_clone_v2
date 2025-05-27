@@ -126,6 +126,13 @@ class TestDBStorage(unittest.TestCase):
         store = list(self.storage._DBStorage__session.new)
         self.assertIn(st, store)
 
+    def test_new_1(self):
+        """Test new method."""
+        st = State(name="Washington")
+        self.storage.new(st)
+        store = list(self.storage._DBStorage__session.new)
+        self.assertIn(st, store)
+
     def test_save(self):
         """Test save method."""
         st = State(name="Virginia")
@@ -155,6 +162,35 @@ class TestDBStorage(unittest.TestCase):
             self.storage.delete(None)
         except Exception:
             self.fail
+
+    def test_delete_none_1(self):
+        """Test delete method with None."""
+        try:
+            self.storage.delete(None)
+        except Exception:
+            self.fail
+
+    def test_new_3(self):
+        """Test new method."""
+        st = State(name="Washington")
+        self.storage.new(st)
+        store = list(self.storage._DBStorage__session.new)
+        self.assertIn(st, store)
+
+    def test_delete_none_2(self):
+        """Test delete method with None."""
+        try:
+            self.storage.delete(None)
+        except Exception:
+            self.fail
+
+    def test_delete_1(self):
+        """Test delete method."""
+        st = State(name="New_York")
+        self.storage._DBStorage__session.add(st)
+        self.storage._DBStorage__session.commit()
+        self.storage.delete(st)
+        self.assertIn(st, list(self.storage._DBStorage__session.deleted))
 
     def test_reload(self):
         """Test reload method."""
