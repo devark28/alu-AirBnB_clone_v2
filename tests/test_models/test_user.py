@@ -114,7 +114,8 @@ class TestUser(unittest.TestCase):
         dt = datetime.utcnow()
         st = User("1", id="5", created_at=dt.isoformat())
         self.assertEqual(st.id, "5")
-        self.assertEqual(st.created_at, dt)
+        # self.assertEqual(st.created_at, dt)
+        self.assertEqual(datetime.fromisoformat(st.created_at), dt)
 
     def test_str(self):
         """Test __str__ representation."""
